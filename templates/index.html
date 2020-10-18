@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Assignment 7{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+  <h1>Lemon Chicken</h1>
+  <p>A recipe by <a href="https://www.flavcity.com/easy-keto-lemon-chicken/">FlavCity</a></p>
+  <img class="image" src="{{ url_for('static', filename = 'lemon-chicken.jpg') }}" alt="Food photo">
+</div>
+
+<h2>Ingredients</h2>
+<ul id="ingreList">
+  <li>4 skin-on chicken thighs</li>
+  <li>1 cup chicken stock/broth</li>
+  <li>A lemon</li>
+  <li>1.5 teaspoons capers</li>
+  <li>2 tablespoons butter</li>
+  <li>2 teaspoons finely chopped fresh parsley</li>
+  <li>Salt & pepper</li>
+  {% if ingre %}
+  <li>{{ ingre }}</li>
+  {% endif %}
+</ul>
+
+{{ wtf.quick_form(form) }}
+
+<hr>
+
+<h2>Instructions</h2>
+<ol id="stepsList">
+  <li>Let the chicken come to room temperature and season with salt and pepper on both sides.</li>
+  <li>Preheat a cast iron or non-stick pan over medium heat for 2 minutes with 1 tablespoon of oil.</li>
+  <li>Add the chicken thighs skin down. Cook for 7-8 minutes or until the skin is deep golden brown.</li>
+  <li>Flip and cook for another 3-4 minutes. Remove the chicken from the pan when it is cooked through.</li>
+  <li>Add the chicken stock to the pan with juice from half a lemon and capers. Bring to a simmer.</li>
+  <li>Cook until the liquid has reduced by half. Add butter and parsley.</li>
+  <li>Lower heat to low and cook for 1-2 minutes until the sauce has thickened up.</li>
+  <li>Turn the heat off and set the pan aside.</li>
+  <li>Plate the chicken and pour over the the lemon pan sauce. Garnish with parsley.</li>
+</ol>
+
+<hr>
+
+<h2>Recipe Video</h2>
+<p>Watch this video of the original recipe for more detailed instructions</p>
+<iframe src="https://www.youtube.com/embed/3Dw7syJ3lLo" width="600" height="400"></iframe>
+
+
+{% endblock %}
