@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Assignment 7{% endblock %}
+{% block title %}Assignment 9{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -11,20 +11,16 @@
 </div>
 
 <h2>Ingredients</h2>
-<ul id="ingreList">
-  <li>4 skin-on chicken thighs</li>
-  <li>1 cup chicken stock/broth</li>
-  <li>A lemon</li>
-  <li>1.5 teaspoons capers</li>
-  <li>2 tablespoons butter</li>
-  <li>2 teaspoons finely chopped fresh parsley</li>
-  <li>Salt & pepper</li>
-  {% if ingre %}
-  <li>{{ ingre }}</li>
-  {% endif %}
-</ul>
 
 {{ wtf.quick_form(form) }}
+
+<br>
+
+<ul id="ingreList">
+  {% for ingre in ingredients %}
+  <li>{{ ingre.name }}</li>
+  {% endfor %}
+</ul>
 
 <hr>
 
