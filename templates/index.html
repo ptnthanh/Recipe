@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Assignment 9{% endblock %}
+{% block title %}Assignment 10{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -12,15 +12,18 @@
 
 <h2>Ingredients</h2>
 
-{{ wtf.quick_form(form) }}
-
-<br>
-
 <ul id="ingreList">
   {% for ingre in ingredients %}
-  <li>{{ ingre.name }}</li>
+  <li>
+    {{ ingre.name }}
+    <a href="assignment10/update/{{ingre.id}}" class="btn btn-outline-secondary btn-sm">Update</a>
+    <a href="assignment10/delete/{{ingre.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+  </li>
   {% endfor %}
 </ul>
+<br>
+
+{{ wtf.quick_form(form) }}
 
 <hr>
 

@@ -38,6 +38,9 @@ class IngredientForm(FlaskForm):
     ingre = StringField('Ingredient to add', validators=[DataRequired()])
     submit = SubmitField('Add')
 
+class UpdateForm(FlaskForm):
+    updated_ingre = StringField('Ingredient to update', validators=[DataRequired()])
+    submit = SubmitField('Update')
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -50,7 +53,7 @@ def internal_server_error(e):
 
 
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def ingredients():
     ingre = None
     form = IngredientForm()
     if form.validate_on_submit():
@@ -62,12 +65,38 @@ def index():
         try:
             db.session.add(new_ingre)
             db.session.commit()
-            return redirect('/assignment09')
+            return redirect("/assignment10")
         except:
             return "There was an error adding new ingredient"
     else:
         ingredients = Ingredients.query.order_by(Ingredients.date_created)
         return render_template('index.html', form=form, ingredients=ingredients)
+
+@app.route('/update/<int:id>', methods=['POST', 'GET'])
+def update(id):
+    ingre_to_update = Ingredients.query.get_or_404(id)
+    update_form = UpdateForm()
+
+    if update_form.validate_on_submit():
+        ingre_to_update.name = update_form.updated_ingre.data
+        try:
+            db.session.commit()
+            return redirect("/assignment10")
+        except:
+            return "There was a problem updating this ingredient"
+    else:
+        return render_template('update.html', update_form=update_form)
+
+@app.route('/delete/<int:id>', methods=['POST', 'GET'])
+def delete(id):
+    ingre_to_delete = Ingredients.query.get_or_404(id)
+
+    try:
+        db.session.delete(ingre_to_delete)
+        db.session.commit()
+        return redirect("/assignment10")
+    except:
+        return "There was a problem deleting that ingredient"
 
 if __name__ == '__main__':
     manager.run()
